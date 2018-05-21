@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Olivia Brunet, Baptiste Démurger & Nathan Gauthier">
+  <title>Interprétation de signaux EEG (Echo State Network)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="./css/style.css">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+  <header>
+<nav>
+  <ul>
+    <li><a href="./index.html">Context</a></li>
+    <li><a href="./EEG.html">EEG Analysis</a>
+      <ul>
+          <li><a href="./discretization.html">Discretization</a>
+            <ul>
+              <li><a href="./static_sax.html">Static SAX</a></li>
+              <li><a href="./dynamic_SAX.html">Dynamic SAX</a></li>
+            </ul>
+          </li>
+          <li><a href="./prediction.html">Prediction</a>
+            <ul>
+              <li><a href="./HMM.html">HMM</a></li>
+              <li><a href="./RNN.html">RNN</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    <li><a href="#">Tutorials</a>
+    <ul>
+      <li><a href="./static_sax_tutorial.html" target = "_blank">Static SAX</a></li>
+    </ul>
+    </li>
+    <li><a href="./about_us.html">About Us</a></li>
+  </ul>
+</nav>
+</header>
+</head>
+
+<body>
+<h1 id="page_title">EEG Analysis</h1>
+<p> Electroencephalogram (EEG) is a measure of brain waves. It is a readily available test that provides evidence of how the brain functions over time. A lot of information is hidden in this noisy signal, for exemple we can detect when you are sleeping, eating or doing sport just by looking at your EEG. This signal contains a lot of knowledge on your brain and body state. </p>
+<p>Since EEG seems to be a key concept to denote most of brain dysfunction, it's a well studied problem. For instance, Spiking Neural Networks (SpiNN) seem to be very effective to detect epileptic behaviour. This is one of the numerous tools tested to analyse and understand these signals. </p>
+
+<p>Lately, it has been shown that Recurrential Neural Networks (RNN) is a promising tool to deal with time series. That's why we are working on it, and try to see if we can predict thanks to RNN an event on your EEG. This would be really helpful in medecine. Unfortunately most of all already existing methods need a very expensive and effective equipment to run properly and quickly. That's why we are also, in parallel, working on a potential way to predict EEG seizures and cerebrovascular accident dynamically, i.e for each instant t. Since someone who is likely to have these medical issues can not carry a bulky equipment, we are limiting ourselves to develop a light method to understand and predict EEG.</p>
+
+<p> To achieve this goal, we are currently exploring several already existing works. These works are related to discretization of time series and different method of prediction. Please, refer to the proper section in the menu if you want to know more about it.</p>
+</body>
+</html>

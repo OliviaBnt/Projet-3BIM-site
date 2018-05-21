@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Olivia Brunet, Baptiste Démurger & Nathan Gauthier">
+  <title>Interprétation de signaux EEG (Echo State Network)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="./css/style.css">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+  <header>
+  <nav>
+    <ul>
+      <li><a href="./index.html">Context</a></li>
+      <li><a href="./EEG.html">EEG Analysis</a>
+        <ul>
+            <li><a href="./discretization.html">Discretization</a>
+              <ul>
+                <li><a href="./static_sax.html">Static SAX</a></li>
+                <li><a href="./dynamic_SAX.html">Dynamic SAX</a></li>
+              </ul>
+            </li>
+            <li><a href="./prediction.html">Prediction</a>
+              <ul>
+                <li><a href="./HMM.html">HMM</a></li>
+                <li><a href="./RNN.html">RNN</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      <li><a href="#">Tutorials</a>
+      <ul>
+        <li><a href="./static_sax_tutorial.html" target = "_blank">Static SAX</a></li>
+      </ul>
+      </li>
+      <li><a href="./about_us.html">About Us</a></li>
+    </ul>
+    </nav>
+  </header>
+</head>
+
+<body>
+<h1 id="page_title">Static SAX</h1>
+<p>Symbolic Aggregate approXimation Algorithm (SAX) aims to discretize time serie into a sequence of a given alphabet. This alphabet can be whatever you want (letters, numbers, strings ...) seeing as you define it.</p>
+<p>But what exactly is this SAX transformation ? Well, the principle is really easy. <br>
+If we assume that you have a time serie data of length $t$. Splitting $t$ in $x$ intervals (let assume that $x$ is a divisor of $t$) will allow to concentrate the major part of information contained in orginal data in $x$ points. For each interval compute the mean value of the $\frac{t}{x}$ points. Then, using quantiles of a given distrbution you can match each mean value to a letter of your alphabet.</p>
+<p style="text-align:center"><img src="./media/illustration_sax.png", alt = "Principle of SAX", width="510" height="435"></p>
+
+<p>It's common to use the assumption saying that the distribution of x mean values follows a gaussian law, so that gaussian quantiles are used on vertical axis. Of course, this assumption has some strong limits and it exists different works to improve this method. SAX gives really good results and unlike a lot of other methods, it takes linear time to compute so it's really worth it !</p>
+<p>If you want to see Static SAX code, you can go on our <a href="https://github.com/TimeSeriesAnalysis/EEGAnalysis">repository</a>. If you want to see real execution of this algorithm (and our code), learn how to use it, or proof of its efficiency on EEG data, you can go an see our <a href="./static_sax_tutorial.html">tutorial</a></p>
+</html>
