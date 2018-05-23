@@ -13,7 +13,7 @@ body {
   width: 65%;
   //border: 1px solid red;
   padding: 10px;
-  font-size: 120%;
+  font-size: 100%;
   line-height: 30px; 
   text-justify: inter-word;
   text-align: justify;
@@ -135,7 +135,7 @@ ul li {
 
 ul ul li { 
 	float: none;
-	width: 7em;
+	width: 8em;
 }
 
 ul li {
@@ -149,7 +149,8 @@ ul a {
   color: #FFF;
   padding: 10px 15px;
   text-align: center;
-  font-family: 'Bradley Hand', cursive;
+  font-family: 'Chalkduster', fantasy;
+	font-size:120%;
   text-shadow: 2px -1px 0px rgba(50,0,0,.2);
 }
 
