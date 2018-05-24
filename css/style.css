@@ -39,10 +39,22 @@ h1 {
   padding: 0;
 }
 #page_title{
-	background-image:url('./EEGtest.png');
 	text-align: center;
 	font-size: xx-large;
 	margin: 5% 0%;
+}
+#head{
+	text-align: center;
+	font-family: 'Chalkduster', fantasy;
+	font-size: xx-large;
+	margin-top: -100px;
+	font-weight: normal;
+}
+#head2{
+	text-align: center;
+	font-family: 'Chalkduster', fantasy;
+	font-size: xx-large;
+	font-weight: normal;
 }
 h2 {
 	font-family: 'Bradley Hand', cursive;
@@ -189,4 +201,12 @@ footer h1
   display: inline-block;
   margin:10px 30px;
   height:120px;
+}
+#logo_insa
+{
+	float:right;
+	display: inline-block;
+	max-width: 20%;
+  height: auto;
+	margin-top:-200px;
 }
