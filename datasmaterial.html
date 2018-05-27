@@ -41,10 +41,14 @@
 <body>
 <h1 id="page_title">En pratique</h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cbc699dd699ef09c948024b2f599a8390622d0f5
 <h1>Données et matériel</h1>
 <p>&nbsp;&nbsp;Un électroencéphalogramme (EEG) est une représentation graphique des ondes cérébrales. C'est un signal extrêmement bruité que l'on obtient à l'aide d'électrodes placés sur le crâne. Cependant, ces dispositifs sont contraignants car ils nécessitent une préparation antérieure ainsi qu'une immobilité du patient. Notre objectif étant de créer un objet pratique et transportable, la capture des signaux sera effectuée par un casque de capture d'ondes cérébrale de la marque Muse&trade;, dont voici le schéma ci-dessous. Ce casque possède 7 capteurs et l'entreprise a développé une application permettant de récupérer les données en temps réel ou de les enregistrer. Pour plus d'informations, veuillez visiter leur <a href="http://www.choosemuse.com/what-does-muse-measure/">site</a>.</p>
 <p align="center"><img src="./media/Muse.png" width="500" border="0" /></p>
 <p>&nbsp;&nbsp;Puisque le prototype utilisera pour données celles obtenues avec le casque présenté ci-dessus, nous entraînerons notre algorithme avec des données issues de ce même casque. Pour ce faire, nous utiliserons à la fois les données brutes et ces mêmes données discrétisées à l'aide d'une discrétisation SAX, préalablement réalisée. Notre objectif est de voir s'il existe une différence entre les résultats obtenus en fonction du type de données utilisées. Dans les deux cas, ces données se présentent sous la forme d'un tableau possédant 1500 lignes, correspondant chacune à un temps t, ainsi que 9 colonnes (7 correspondent aux données pour chaque capteur, 1 correspond au temps et la dernière, le label, indique l'état de l'oeil). </p>
+<<<<<<< HEAD
 =======
 <h1>Données</h1>
 <p> L'un des concepts de base pour notre réseau de neuronnes est le "reservoir computing". Le reservoir computing est une méthode de calcul inspirée du fonctionnement de notre cerveau. Lorsque notre cerveau apprend une tâche, il sollicite un certain nombre de neurones reliés entre eux de manières plus où moins intense. Le terme "poids synaptique" indique la force d'interconnexion entre deux neuronnes. Lors d'un apprentissage, le cerveau programme une combinaison dite optimale de poids synaptiques. Ainsi, de façon numérique, pour entrainer un réseau de neuronnes à reconnaitre quelque chose (un son, une image...) il faut déterminer l'ensemble des coefficients numériques correspondant donc aux poids synaptiques de notre cerveau. L'avantage du réservoir computing, c'est qu'il permet de simplifier cette étape d'apprentissage. De fait, seul les poids synaptiques de la dernière couche de neuronnes (la couche de sortie) sont calculés. Cette approche permet de réduire l'étape d'apprentissage à une simple opération de régression linéaire. </p>
@@ -61,6 +65,8 @@ sorties permet d'avoir un parallélisme où la transformation du signal d’entr
 
 <p></p>
 
+=======
+>>>>>>> cbc699dd699ef09c948024b2f599a8390622d0f5
 
 <h1>Matériel</h1>
 >>>>>>> 10f4cc2b72d80c1525cba3d832abe44c8fbd0c72
