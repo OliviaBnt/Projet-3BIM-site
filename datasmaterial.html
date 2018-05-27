@@ -40,21 +40,10 @@
 
 <body>
 <h1 id="page_title">En pratique</h1>
-<h1>Données</h1>
-<p> L'un des concepts de base pour notre réseau de neuronnes est le "reservoir computing". Le reservoir computing est une méthode de calcul inspirée du fonctionnement de notre cerveau. Lorsque notre cerveau apprend une tâche, il sollicite un certain nombre de neurones reliés entre eux de manières plus où moins intense. Le terme "poids synaptique" indique la force d'interconnexion entre deux neuronnes. Lors d'un apprentissage, le cerveau programme une combinaison dite optimale de poids synaptiques. Ainsi, de façon numérique, pour entrainer un réseau de neuronnes à reconnaitre quelque chose (un son, une image...) il faut déterminer l'ensemble des coefficients numériques correspondant donc aux poids synaptiques de notre cerveau. L'avantage du réservoir computing, c'est qu'il permet de simplifier cette étape d'apprentissage. De fait, seul les poids synaptiques de la dernière couche de neuronnes (la couche de sortie) sont calculés. Cette approche permet de réduire l'étape d'apprentissage à une simple opération de régression linéaire. </p>
-
-<tr align="left" valign="middle">
-	<td>&nbsp;<img src="./media/reservoir_computing.png" alt="" height="500" align="center" border="0" />
-</tr>
-
-<p> Un Echo State Network (ESN) est une partie intégrante du reservoir computing. Il s'agit d'un réseau de neuronne sigmoïdes aléatoires et récurrents guidés par un signal temporel uni- ou multidimentionnel. Tout en étant pratique, conceptuellement simple et facile à mettre en œuvre, les ESN ont besoin d'expérience et de perspicacité pour atteindre les bonnes performances dans de nombreuses tâches. Ici, seul un entrainement sur la couche de sortie du réseau de neuronnes est suffisant pour obtenir in fine d'excellents résultats en pratique. L'idée maitresse consiste à utiliser un reservoir de neuronnes comme fonction temporelle.
-L’idée clé du Reservoir Computing peut être exprimée ainsi : séparer la partie qui eﬀectue le calcul de la sortie où se fait l’apprentissage. La séparation du réservoir et des
-sorties permet d'avoir un parallélisme où la transformation du signal d’entrée et de son historique est réalisé qu’une seule fois. On peut enfin extraire de ces états plusieurs informations en multipliant les sorties. On a ainsi une unité de traitement et une unité de mémoire. Tout cela confère aux ESN une plausibilité biologique qui sera alors confirmée par la découverte indépendante des Liquid State Machines dans le domaine des neurosciences. </p>
-
-<p>Notre réseau de neurronnes est construit dans le cadre d'un apprentissage "supervisé". C'est à dire que l'on guide l'algorithme sur la voie de l'apprentissage en lui fournissant des exemples. l'intelligence artificielle apprend alors des choses de chacun des exemples dans l'objectif de généraliser son apprentissage à de nouveaux cas. </p>
-
-<p></p>
-
+<h1>Données et matériel</h1>
+<p>&nbsp;&nbsp;Un électroencéphalogramme (EEG) est une représentation graphique des ondes cérébrales. C'est un signal extrêmement bruité que l'on obtient à l'aide d'électrodes placés sur le crâne. Cependant, ces dispositifs sont contraignants car ils nécessitent une préparation antérieure ainsi qu'une immobilité du patient. Notre objectif étant de créer un objet pratique et transportable, la capture des signaux sera effectuée par un casque de capture d'ondes cérébrale de la marque Muse&trade;, dont voici le schéma ci-dessous. Ce casque possède 7 capteurs et l'entreprise a développé une application permettant de récupérer les données en temps réel ou de les enregistrer. Pour plus d'informations, veuillez visiter leur <a href="http://www.choosemuse.com/what-does-muse-measure/">site</a>.</p>
+<p align="center"><img src="./media/Muse.png" width="500" border="0" /></p>
+<p>&nbsp;&nbsp;Puisque le prototype utilisera pour données celles obtenues avec le casque présenté ci-dessus, nous entraînerons notre algorithme avec des données issues de ce même casque. Pour ce faire, nous utiliserons à la fois les données brutes et ces mêmes données discrétisées à l'aide d'une discrétisation SAX, préalablement réalisée. Notre objectif est de voir s'il existe une différence entre les résultats obtenus en fonction du type de données utilisées. Dans les deux cas, ces données se présentent sous la forme d'un tableau possédant 1500 lignes, correspondant chacune à un temps t, ainsi que 9 colonnes (7 correspondent aux données pour chaque capteur, 1 correspond au temps et la dernière, le label, indique l'état de l'oeil). </p>
 
 <h1>Matériel</h1>
 </body>
