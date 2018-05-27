@@ -40,15 +40,9 @@
 
 <body>
 <h1 id="page_title">En pratique</h1>
-<h1>Données</h1>
-<p> An increasing number of algorithms for inference from experimental data require discrete data as input. For example, dynamic Bayesian network methods and methods that use the framework of finite dynamical systems, such as Boolean networks, all take discrete input. Experimental data, however, are typically continuous and represented by computer floating point numbers. The translation from continuous to discrete data is crucial in preserving the variable dependencies and thus has a significant impact on the performance of the network inference algorithms. It's especially true for EEG signals.</p>
-
-<p>Our first (and current) approach use this kind of prediction algorithm although it exists other tools to predict continous time series. We are well aware of these methods but we made the choice to explore first this area and depending on our first results on real time captured data we will steer our research.</p>
-
-<p>Since we aim to develop a light software enable to predict in real time and on line if you are likely to have a heart-attack, a seizure or a cerebrovascular accident, we need to find an efficient way to discretize our data. Our literature search lead us to SAX algorithm. This is a very simple, light (and efficient) way to discretize time series data without loosing too much original information. So starting from this point, we created a SAX-inspired algorithm to handle dynamic data.</p>
-
-<p>You can learn more about SAX algorithm <a href="./static_sax.html">here</a> and about Dynamic SAX algorithm <a href="./dynamic_SAX.html">here</a>. You can also access to the code in our <a href="https://github.com/TimeSeriesAnalysis/EEGAnalysis">repository</a>.</p>
-
-<h1>Matériel</h1>
+<h1>Données et matériel</h1>
+<p>&nbsp;&nbsp;Un électroencéphalogramme (EEG) est une représentation graphique des ondes cérébrales. C'est un signal extrêmement bruité que l'on obtient à l'aide d'électrodes placés sur le crâne. Cependant, ces dispositifs sont contraignants car ils nécessitent une préparation antérieure ainsi qu'une immobilité du patient. Notre objectif étant de créer un objet pratique et transportable, la capture des signaux sera effectuée par un casque de capture d'ondes cérébrale de la marque Muse&trade;, dont voici le schéma ci-dessous. Ce casque possède 7 capteurs et l'entreprise a développé une application permettant de récupérer les données en temps réel ou de les enregistrer. Pour plus d'informations, veuillez visiter leur <a href="http://www.choosemuse.com/what-does-muse-measure/">site</a>.</p>
+<p align="center"><img src="./media/Muse.png" width="500" border="0" /></p>
+<p>&nbsp;&nbsp;Puisque le prototype utilisera pour données celles obtenues avec le casque présenté ci-dessus, nous entraînerons notre algorithme avec des données issues de ce même casque. Pour ce faire, nous utiliserons à la fois les données brutes et ces mêmes données discrétisées à l'aide d'une discrétisation SAX, préalablement réalisée. Notre objectif est de voir s'il existe une différence entre les résultats obtenus en fonction du type de données utilisées. Dans les deux cas, ces données se présentent sous la forme d'un tableau possédant 1500 lignes, correspondant chacune à un temps t, ainsi que 9 colonnes (7 correspondent aux données pour chaque capteur, 1 correspond au temps et la dernière, le label, indique l'état de l'oeil). </p>
 </body>
 </html>
