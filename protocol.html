@@ -42,12 +42,54 @@
 <body>
 <h1 id="page_title">En pratique</h1>
 <h1>Protocole</h1>
-<p> An increasing number of algorithms for inference from experimental data require discrete data as input. For example, dynamic Bayesian network methods and methods that use the framework of finite dynamical systems, such as Boolean networks, all take discrete input. Experimental data, however, are typically continuous and represented by computer floating point numbers. The translation from continuous to discrete data is crucial in preserving the variable dependencies and thus has a significant impact on the performance of the network inference algorithms. It's especially true for EEG signals.</p>
+<p> 
+Principe d'un reseaux de neurones standard:
+Les methodes d'aprentissage par reseaux de neurones fonctionnent sur le principe de logique inductive, c'est a dire que l'on essaie de determiner la solution
+la plus plausible à un probleme à partir d'observations precedentes. Pour cela, on considère qu'il existe une fonction répondant parfaitement au problème,
+ que l'on va tenter d'approximer par une combinaison linéaire de fonctions.
+</p> <p> 
+Notre objectif lors de la phase dite d'entrainement du réseau est donc de déterminer les coefficients optimaux de cette combinaison linéaire, 
+c'est à dire ceux qui minimisent l'erreur (différence entre la valeur prédite par le modèle et celle qu'il est censé prédire)
+</p> <p> 
+//->réseau
+</p> <p> 
 
-<p>Our first (and current) approach use this kind of prediction algorithm although it exists other tools to predict continous time series. We are well aware of these methods but we made the choice to explore first this area and depending on our first results on real time captured data we will steer our research.</p>
 
-<p>Since we aim to develop a light software enable to predict in real time and on line if you are likely to have a heart-attack, a seizure or a cerebrovascular accident, we need to find an efficient way to discretize our data. Our literature search lead us to SAX algorithm. This is a very simple, light (and efficient) way to discretize time series data without loosing too much original information. So starting from this point, we created a SAX-inspired algorithm to handle dynamic data.</p>
+Pour cela, on fait d'abord passer une partie des données dont nous disposons, appelées données d'entrainement, contenues dans un vecteur d'entrées, à travers plusieurs
+couches de neurones. 
+</p> <p> 
+//schema neurone
+</p> <p> 
+Les neurones sont des unités computationelles /opératueur algo prenant en entrées les valeurs d'un vecteur d'entrée, effectuant une combinaison linéaire de ceux ci, puis calculant l'image du résultat par une fonction dite d'"activation". Cette dernière permet d’assurer la non linéarité du système. Les coefficients de la combinaison linéaire sont appelés "poids", et ce sont eux qui seront amenés à être modifiés pour permettre l'apprentissage.
+</p> <p> 
+Ainsi, chaque neurone calculant une combinaison des différents paramètres, chaque neurone de la couche d'après effectuent une combinaison de ces combinaison, et ainsi de suite, pour arriver à avoir une fonction suffisamment complexe pour approximer correctement la solution au problème.
+</p> <p> 
+Une fois que les données ont traversées la dernière couche (et qu’on a donc obtenu la prédiction du modèle), l’étape suivante est d’effectuer une “back-propagation”, ou descente de gradient, ce qui revient en terme non savant à déterminer quel neurone de la couche précédente a la plus grosse influence negative sur la prediction (celui qui fait différer le plus la valeur prédite de la valeur réelle). C'est grace a cette descente de gradient que l'on est capable d'identifier pour quel neurone(s) le poids doit être ajusté et à quel point. 
+</p> <p> 
+Ainsi, //formule correction + taux d'apprentissage
+</p> <p> 
+Toutefois, modifier les poids à chaque fois que l'on fait passer une donnée dans le réseaux de neurones demande beaucoup de calcul, c'est pourquoi il est nécessaire de faire passer un certain nombre de données dans le réseau de neurones avant de les modifier. c'est la variable batch_size qui définit le nombre de ces données.
+</p> <p> 
+Fonctionement ESN:
+</p> <p> 
+Le type de réseaux de neurones que nous avons décidé d'étudier est l'echo state network. Ce dernier se base sur le principe du reservoir computing: Les couches intermédiaires de neurones sont remplacé par un ensemble de neurones appelé réservoir, lié entre eux de façon aléatoire, et dont les poids ne sont pas modifiés au cours de l’apprentissage. En effet seuls les poids des couches d’entrée et/ou de sorties sont prise en compte lors de la descente de gradient. Cette particularité permet de minimiser le nombre de modification de poids, et donc de réduire le nombre de calcul effectué par l’ordinateur à chaque “back-propagation”.
+</p> <p> 
+La deuxième différence entre l'ESN et un réseau de neurone plus standard est le fait d'ajouter une variable dite d'état aux neurones. Cette variable correspond au fait
+que chaque neurone prend en compte non seulement la valeur d'entrée, mais aussi la prédiction précédente du modèle. //schéma state //leaking rate  
+</p> <p> 
+Cette variable facilite grandement l'apprentissage online: étant donné que les valeurs précédentes sont prises en compte dans la prédiction, notre réseau est capable de prédire en se basant sur des motifs
+</p> <p> 
+Notre objectif est de trouver l'arrangement optimal des différents paramètres: le nombre de neurone du reservoir, les differentes valeurs d'initialisation des poids, le taux d'apprentissage, le batch size...
+</p> <p> 
+Permettant d'obtenir le plus rapidement possible (avec le moins d'entrainement) les poids optimaux lors d'un entrainement sur un nouveau jeu de données.
+On mesurera l'impact du changement de ces différents paramètres en faisant prédire à notre réseaux entrainé une sortie sur une deuxième partie des données (20%)
+</p> <p> 
+Critère d'évaluation: loss, accuracy , ect.. + lequel on veut optimiser et pourquoi, genre on veut le - possible de faux positif pour pas appeler les secours tout le temps, et on veut pas louper de crise, a repenser
 
-<p>You can learn more about SAX algorithm <a href="./static_sax.html">here</a> and about Dynamic SAX algorithm <a href="./dynamic_SAX.html">here</a>. You can also access to the code in our <a href="https://github.com/TimeSeriesAnalysis/EEGAnalysis">repository</a>.</p>
+
+
+</p>
+
+
 </body>
 </html>
