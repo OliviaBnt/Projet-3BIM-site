@@ -151,7 +151,7 @@ ul li {
 
 ul ul li { 
 	float: none;
-	width: 8em;
+	width: 100%;
 }
 
 ul li {
@@ -166,7 +166,7 @@ ul a {
   padding: 10px 15px;
   text-align: center;
   font-family: 'Chalkduster', fantasy;
-	font-size:120%;
+	font-size:110%;
   text-shadow: 2px -1px 0px rgba(50,0,0,.2);
 }
 
