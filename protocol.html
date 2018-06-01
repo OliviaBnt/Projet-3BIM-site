@@ -41,55 +41,43 @@
 
 <body>
 <h1 id="page_title">En pratique</h1>
+<p>&nbsp;&nbsp;Notre algorithme est un Echo State Network (ESN), qui est issu d'une grande famille de réseaux de neurones appelée Reservoir Computing. Tous ces termes peuvent sembler flous au premier abord mais ils seront expliqués tout au long de notre protocole. En résumé, nous implémentons un réseau constitué de neurones artificiels qui possèdent un fonctionnement analogue à celui d'un neurone humain. Ce réseau contenant ces petites unités complexes permet de traiter des informations afin de retourner un résultat. Ces méthodes sont aujourd'hui répandues pour la reconnaissance faciale, la compression des images, la médecine, l'économie, ainsi que dans de nombreux autres domaines. Ici, notre ESN traite simultanément ce qu'on appelle des séries temporelles. Comme décrit brièvement dans l'introduction, une série temporelle est une suite de valeurs numériques représentant l'évolution d'une quantité au cours du temps. L'ESN doit donc pouvoir expliquer mathématiquement cette série afin d'analyser le comportement passé pour pouvoir prédire le comportement futur.</p>
+
 <h1>Protocole</h1>
-<p> 
-Principe d'un reseaux de neurones standard:
-Les methodes d'aprentissage par reseaux de neurones fonctionnent sur le principe de logique inductive, c'est a dire que l'on essaie de determiner la solution
-la plus plausible à un probleme à partir d'observations precedentes. Pour cela, on considère qu'il existe une fonction répondant parfaitement au problème,
- que l'on va tenter d'approximer par une combinaison linéaire de fonctions.
-</p> <p> 
-Notre objectif lors de la phase dite d'entrainement du réseau est donc de déterminer les coefficients optimaux de cette combinaison linéaire, 
-c'est à dire ceux qui minimisent l'erreur (différence entre la valeur prédite par le modèle et celle qu'il est censé prédire)
-</p> <p> 
-//->réseau
-</p> <p> 
+
+<h2>Principe d'un réseau de neurones standard:</h2>
+<p>&nbsp;&nbsp;Les méthodes d'aprentissage par réseaux de neurones fonctionnent sur le principe de logique inductive, c'est à dire que l'on essaie de determiner la solution
+la plus plausible à un problème à partir d'observations précédentes. Pour cela, on considère qu'il existe une fonction répondant parfaitement au problème,
+ que l'on va tenter d'approximer par une combinaison linéaire de fonctions mathématiques.</p> 
+
+<p>&nbsp;&nbsp;Notre objectif lors de la phase dite d'entrainement du réseau est donc de déterminer les coefficients optimaux de cette combinaison linéaire, 
+c'est à dire ceux qui minimisent l'erreur, qui est la différence entre la valeur réelle et celle prédite par le modèle. Ainsi, les données du problème sont stockées numériquement dans un vecteur d'entrée. Ce vecteur subit ensuite des opérations par des unités computationelles appelées neurones.</p>
+
+<p align="center"><img src="./media/neurone.png" width="800" border="0" /></p>
+<p>&nbsp;&nbsp;Les neurones sont des opérateurs algorithmiques prenant en entrées un vecteur, effectuant une combinaison linéaire des valeurs de celui-ci, puis calculant l'image du résultat par une fonction dite d'"activation". Cette dernière permet d’assurer la non linéarité du système. Les coefficients de la combinaison linéaire associés à chaque donnée sont appelés "poids", et ce sont eux qui seront amenés à être modifiés pour permettre l'apprentissage.</p>
+ 
+<p>&nbsp;&nbsp;De la même façon que chaque neurone de la première couche calculent une combinaison des différents données, chaque neurone de la couche suivante effectuent une combinaison de ces combinaison, et ainsi de suite. L'objectif est d'avoir une fonction suffisament complexe mathématiquement pour pouvoir approximer.</p>
+
+<p>&nbsp;&nbsp;Une fois que les données ont traversées la dernière couche on obtient une valeur qui représente la prédiction du modèle. Dans notre exemple, si cette valeur est plus proche de 0 le modèle prédira que l'œil est fermé, si elle est plus proche de 1 il prédira des yeux ouverts.
+L’étape suivante est d’effectuer une “back-propagation”, ou descente de gradient, cette opération revient à déterminer quel neurone de la couche précédente a eu la plus grosse influence negative sur la prediction (celui qui fait différer le plus la valeur prédite de la valeur réelle). C'est grâce a cette descente de gradient que l'on est capable d'identifier pour quel(s) neurone(s) le poids doit être ajusté. Cette rétropropagation du gradient s'effectue dans le sens inverse de la prédiction, on commence par corriger la dernière couche, puis on effectue la même opération sur chaque neurone pour déterminer quel(s) neurone(s) de la couche précédente a le plus influencé l'erreur commise par celui-ci, on corrige les poids, et ainsi de suite jusqu'à la couche d'entrée. </p>
+
+<p>&nbsp;&nbsp;Le learning_rate, ou taux d'apprentissage, représente à quel point les poids sont modifiés à chaque backpropagation. C'est un paramètre essentiel pour la phase d'optimisation du programme : un taux d'apprentissage trop faible signifie une convergence trop lente de la fonction approchée par le réseu, alors que trop élevé il peut la faire diverger.
+De plus, modifier les poids à chaque fois que l'on fait passer une donnée dans le réseaux de neurones demande beaucoup de calcul, c'est pourquoi il est nécessaire de faire passer un certain nombre de données dans le réseau de neurones avant d'effectuer la descente de gradient. C'est la variable batch_size qui définit le nombre de ces données, et il également primordial de la prendre en compte lors de l'optimisation.</p>
 
 
-Pour cela, on fait d'abord passer une partie des données dont nous disposons, appelées données d'entrainement, contenues dans un vecteur d'entrées, à travers plusieurs
-couches de neurones. 
-</p> <p> 
-//schema neurone
-</p> <p> 
-Les neurones sont des unités computationelles /opératueur algo prenant en entrées les valeurs d'un vecteur d'entrée, effectuant une combinaison linéaire de ceux ci, puis calculant l'image du résultat par une fonction dite d'"activation". Cette dernière permet d’assurer la non linéarité du système. Les coefficients de la combinaison linéaire sont appelés "poids", et ce sont eux qui seront amenés à être modifiés pour permettre l'apprentissage.
-</p> <p> 
-Ainsi, chaque neurone calculant une combinaison des différents paramètres, chaque neurone de la couche d'après effectuent une combinaison de ces combinaison, et ainsi de suite, pour arriver à avoir une fonction suffisamment complexe pour approximer correctement la solution au problème.
-</p> <p> 
-Une fois que les données ont traversées la dernière couche (et qu’on a donc obtenu la prédiction du modèle), l’étape suivante est d’effectuer une “back-propagation”, ou descente de gradient, ce qui revient en terme non savant à déterminer quel neurone de la couche précédente a la plus grosse influence negative sur la prediction (celui qui fait différer le plus la valeur prédite de la valeur réelle). C'est grace a cette descente de gradient que l'on est capable d'identifier pour quel neurone(s) le poids doit être ajusté et à quel point. 
-</p> <p> 
-Ainsi, //formule correction + taux d'apprentissage
-</p> <p> 
-Toutefois, modifier les poids à chaque fois que l'on fait passer une donnée dans le réseaux de neurones demande beaucoup de calcul, c'est pourquoi il est nécessaire de faire passer un certain nombre de données dans le réseau de neurones avant de les modifier. c'est la variable batch_size qui définit le nombre de ces données.
-</p> <p> 
-Fonctionement ESN:
-</p> <p> 
-Le type de réseaux de neurones que nous avons décidé d'étudier est l'echo state network. Ce dernier se base sur le principe du reservoir computing: Les couches intermédiaires de neurones sont remplacé par un ensemble de neurones appelé réservoir, lié entre eux de façon aléatoire, et dont les poids ne sont pas modifiés au cours de l’apprentissage. En effet seuls les poids des couches d’entrée et/ou de sorties sont prise en compte lors de la descente de gradient. Cette particularité permet de minimiser le nombre de modification de poids, et donc de réduire le nombre de calcul effectué par l’ordinateur à chaque “back-propagation”.
-</p> <p> 
-La deuxième différence entre l'ESN et un réseau de neurone plus standard est le fait d'ajouter une variable dite d'état aux neurones. Cette variable correspond au fait
-que chaque neurone prend en compte non seulement la valeur d'entrée, mais aussi la prédiction précédente du modèle. //schéma state //leaking rate  
-</p> <p> 
-Cette variable facilite grandement l'apprentissage online: étant donné que les valeurs précédentes sont prises en compte dans la prédiction, notre réseau est capable de prédire en se basant sur des motifs
-</p> <p> 
-Notre objectif est de trouver l'arrangement optimal des différents paramètres: le nombre de neurone du reservoir, les differentes valeurs d'initialisation des poids, le taux d'apprentissage, le batch size...
-</p> <p> 
-Permettant d'obtenir le plus rapidement possible (avec le moins d'entrainement) les poids optimaux lors d'un entrainement sur un nouveau jeu de données.
-On mesurera l'impact du changement de ces différents paramètres en faisant prédire à notre réseaux entrainé une sortie sur une deuxième partie des données (20%)
-</p> <p> 
-Critère d'évaluation: loss, accuracy , ect.. + lequel on veut optimiser et pourquoi, genre on veut le - possible de faux positif pour pas appeler les secours tout le temps, et on veut pas louper de crise, a repenser
+<p align="center"><img src="./media/taux_app.png" border="0" /></p>
 
+<h2>Fonctionement ESN:</h2>
+<p>&nbsp;&nbsp;Le type de réseaux de neurones que nous avons décidé d'étudier est l'ESN. Ce dernier se base sur le principe du reservoir computing: Les couches intermédiaires de neurones sont remplacé par un ensemble de neurones appelé réservoir, lié entre eux de façon aléatoire, et dont les poids ne sont pas modifiés au cours de l’apprentissage. En effet seuls les poids des couches d’entrée et/ou de sorties sont prise en compte lors de la descente de gradient. Cette particularité permet de minimiser le nombre de modification de poids, et donc de réduire le nombre de calcul effectué par l’ordinateur à chaque “back-propagation”.</p>
 
+<p>&nbsp;&nbsp;La deuxième différence entre l'ESN et un réseau de neurone plus standard est le fait d'ajouter une variable dite d'état au réservoir. Cette variable correspond au fait que l'apprentissage prend en compte non seulement les valeurs d'entrée, mais aussi la prédiction précédente du modèle.</p>
 
-</p>
+<p>&nbsp;&nbsp;L'existence de cette variable facilite grandement l'apprentissage online. En effet, lorsque l'on veut travailler sur des séries temporelles, le modèle prends en entrée un certain nombre de valeurs prises à intervalles de temps réguliers, et tente de prédire la valeur suivante. L'état du réservoir représente sa capacité à se rappeler des motifs qui ont précédé. Toutefois, il est nécessairede contrebalancer cet effet, c'est à dire de faire "oublier" une partie de l'information au modèle, afin que les valeurs aberrantes ne prennent pas en compte les petites variations mais plutôt une tendance d'ensemble des changements d'état précédents. La variable nommé leaking_rate, ou taux de fuite du réservoir, représente à quel point la variable d'état est modifiée à chaque propagation, de la même façon que le taux d'apprentissage pour les poids.</p>
 
+<p>&nbsp;&nbsp;Notre objectif est de trouver l'arrangement optimal des différents paramètres : les poids initiaux, le taux d'apprentissage, nombre de neurone du réservoir, le batch_size, le leaking rate. Notre protocole de recherche consistera donc à faire varier un à un ces différents paramètres et d'étudier leur influence sur l'exactitude de la prédiction du modèle.</p>
+
+<p>&nbsp;&nbsp;Les données dont nous disposons ont été divisées en trois parties: une première sur lesquelles le modèle va être entrainé, la seconde sur lesquels il sera testé, 
+Chaque donnée d'entrée se présente sous la forme d'un vecteur comprenant les valeurs des dix derniers points des quatorzes courbes de l'électroencéphalogramme (140 valeurs). Ces données sont labélisées, c'est à dire que l'on connait l'état de sortie (œil ouvert ou fermé) à chaque instant t. Cet état est représenté par un entier: 1 pour l'œil ouvert, 0 pour l'œeil fermé.</p>
 
 </body>
 </html>
